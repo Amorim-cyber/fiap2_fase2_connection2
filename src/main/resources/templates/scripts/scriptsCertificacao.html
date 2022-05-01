@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      style="height: 100%;width: 100%;margin: 0;"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Shows Curriculum</title>
+
+    <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
+    <script type='text/javascript' src='http://code.jquery.com/jquery-1.11.0.js'></script>
+    <script type='text/javascript'
+            src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
+</head>
+<body style="height: 100%;width: 100%;margin: 0;background-color: #F5F5F5;">
+
+<script th:fragment="scriptCertificacao">
+    function showCertificacao1(){
+        let skillPanel = document.getElementById("skill");
+        let certificacao1Panel = document.getElementById("certificacao1");
+        let certificacao2Panel = document.getElementById("certificacao2");
+        let certificacao3Panel = document.getElementById("certificacao3");
+        let certificacao4Panel = document.getElementById("certificacao4");
+        let certificacao5Panel = document.getElementById("certificacao5");
+
+        skillPanel.setAttribute("class","tab-pane fade");
+        skillPanel.setAttribute("style","display:none;");
+        certificacao1Panel.setAttribute("class","tab-pane fade show active");
+        certificacao1Panel.removeAttribute("style");
+        certificacao2Panel.setAttribute("class","tab-pane fade");
+        certificacao2Panel.setAttribute("style","display:none;");
+        certificacao3Panel.setAttribute("class","tab-pane fade");
+        certificacao3Panel.setAttribute("style","display:none;");
+        certificacao4Panel.setAttribute("class","tab-pane fade");
+        certificacao4Panel.setAttribute("style","display:none;");
+        certificacao5Panel.setAttribute("class","tab-pane fade");
+        certificacao5Panel.setAttribute("style","display:none;");
+    }
+
+    function showCertificacao2(){
+        let skillPanel = document.getElementById("skill");
+        let certificacao1Panel = document.getElementById("certificacao1");
+        let certificacao2Panel = document.getElementById("certificacao2");
+        let certificacao3Panel = document.getElementById("certificacao3");
+        let certificacao4Panel = document.getElementById("certificacao4");
+        let certificacao5Panel = document.getElementById("certificacao5");
+
+        skillPanel.setAttribute("class","tab-pane fade");
+        skillPanel.setAttribute("style","display:none;");
+        certificacao1Panel.setAttribute("class","tab-pane fade");
+        certificacao1Panel.setAttribute("style","display:none;");
+        certificacao2Panel.setAttribute("class","tab-pane fade show active");
+        certificacao2Panel.removeAttribute("style");
+        certificacao3Panel.setAttribute("class","tab-pane fade");
+        certificacao3Panel.setAttribute("style","display:none;");
+        certificacao4Panel.setAttribute("class","tab-pane fade");
+        certificacao4Panel.setAttribute("style","display:none;");
+        certificacao5Panel.setAttribute("class","tab-pane fade");
+        certificacao5Panel.setAttribute("style","display:none;");
+    }
+
+    function showCertificacao3(){
+        let skillPanel = document.getElementById("skill");
+        let certificacao1Panel = document.getElementById("certificacao1");
+        let certificacao2Panel = document.getElementById("certificacao2");
+        let certificacao3Panel = document.getElementById("certificacao3");
+        let certificacao4Panel = document.getElementById("certificacao4");
+        let certificacao5Panel = document.getElementById("certificacao5");
+
+        skillPanel.setAttribute("class","tab-pane fade");
+        skillPanel.setAttribute("style","display:none;");
+        certificacao1Panel.setAttribute("class","tab-pane fade");
+        certificacao1Panel.setAttribute("style","display:none;");
+        certificacao2Panel.setAttribute("class","tab-pane fade");
+        certificacao2Panel.setAttribute("style","display:none;");
+        certificacao3Panel.setAttribute("class","tab-pane fade show active");
+        certificacao3Panel.removeAttribute("style");
+        certificacao4Panel.setAttribute("class","tab-pane fade");
+        certificacao4Panel.setAttribute("style","display:none;");
+        certificacao5Panel.setAttribute("class","tab-pane fade");
+        certificacao5Panel.setAttribute("style","display:none;");
+    }
+
+    function showCertificacao4(){
+        let skillPanel = document.getElementById("skill");
+        let certificacao1Panel = document.getElementById("certificacao1");
+        let certificacao2Panel = document.getElementById("certificacao2");
+        let certificacao3Panel = document.getElementById("certificacao3");
+        let certificacao4Panel = document.getElementById("certificacao4");
+        let certificacao5Panel = document.getElementById("certificacao5");
+
+        skillPanel.setAttribute("class","tab-pane fade");
+        skillPanel.setAttribute("style","display:none;");
+        certificacao1Panel.setAttribute("class","tab-pane fade");
+        certificacao1Panel.setAttribute("style","display:none;");
+        certificacao2Panel.setAttribute("class","tab-pane fade");
+        certificacao2Panel.setAttribute("style","display:none;");
+        certificacao3Panel.setAttribute("class","tab-pane fade");
+        certificacao3Panel.setAttribute("style","display:none;");
+        certificacao4Panel.setAttribute("class","tab-pane fade show active");
+        certificacao4Panel.removeAttribute("style");
+        certificacao5Panel.setAttribute("class","tab-pane fade");
+        certificacao5Panel.setAttribute("style","display:none;");
+    }
+
+    function showCertificacao5(){
+        let skillPanel = document.getElementById("skill");
+        let certificacao1Panel = document.getElementById("certificacao1");
+        let certificacao2Panel = document.getElementById("certificacao2");
+        let certificacao3Panel = document.getElementById("certificacao3");
+        let certificacao4Panel = document.getElementById("certificacao4");
+        let certificacao5Panel = document.getElementById("certificacao5");
+
+        skillPanel.setAttribute("class","tab-pane fade");
+        skillPanel.setAttribute("style","display:none;");
+        certificacao1Panel.setAttribute("class","tab-pane fade");
+        certificacao1Panel.setAttribute("style","display:none;");
+        certificacao2Panel.setAttribute("class","tab-pane fade");
+        certificacao2Panel.setAttribute("style","display:none;");
+        certificacao3Panel.setAttribute("class","tab-pane fade");
+        certificacao3Panel.setAttribute("style","display:none;");
+        certificacao4Panel.setAttribute("class","tab-pane fade");
+        certificacao4Panel.setAttribute("style","display:none;");
+        certificacao5Panel.setAttribute("class","tab-pane fade show active");
+        certificacao5Panel.removeAttribute("style");
+    }
+
+    function showSkill(){
+        let skillPanel = document.getElementById("skill");
+        let certificacao1Panel = document.getElementById("certificacao1");
+        let certificacao2Panel = document.getElementById("certificacao2");
+        let certificacao3Panel = document.getElementById("certificacao3");
+        let certificacao4Panel = document.getElementById("certificacao4");
+        let certificacao5Panel = document.getElementById("certificacao5");
+
+        certificacao1Panel.setAttribute("class","tab-pane fade");
+        certificacao1Panel.setAttribute("style","display:none;");
+        certificacao2Panel.setAttribute("class","tab-pane fade");
+        certificacao2Panel.setAttribute("style","display:none;");
+        certificacao3Panel.setAttribute("class","tab-pane fade");
+        certificacao3Panel.setAttribute("style","display:none;");
+        certificacao4Panel.setAttribute("class","tab-pane fade");
+        certificacao4Panel.setAttribute("style","display:none;");
+        certificacao5Panel.setAttribute("class","tab-pane fade");
+        certificacao5Panel.setAttribute("style","display:none;");
+        skillPanel.setAttribute("class","tab-pane fade show active");
+        skillPanel.removeAttribute("style");
+    }
+</script>
+
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+</body>
+</html>

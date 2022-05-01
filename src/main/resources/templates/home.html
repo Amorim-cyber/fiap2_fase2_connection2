@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      style="height: 100%;width: 100%;margin: 0;"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Shows Curriculum</title>
+
+    <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
+    <script type='text/javascript' src='http://code.jquery.com/jquery-1.11.0.js'></script>
+    <script type='text/javascript'
+            src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
+</head>
+<body style="height: 100%;width: 100%;margin: 0;background-color: #F5F5F5;">
+
+<div class="container" style="height: 100%;width: 100%;
+    display:flex;
+    flex-direction: column;
+    justify-content: space-around;">
+
+    <div class="card">
+        <div class="card-body">
+            <h1>Encontre seu candidato aqui</h1>
+            <hr>
+            <div class="alert alert-danger" th:if="${error!=null}">
+                <p th:text="${error}"></p>
+            </div>
+            <br>
+            <div class="form__group field mb-3" id="fieldCep">
+                <input placeholder="Pesquise aqui o que procura" onkeypress="search();"
+                       type="text" class="form-control" name="searcher" id="searcher">
+            </div>
+            <br>
+            <div class="overflow-auto">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th Style="display:none;" scope="col">CPF Candidato</th>
+                        <th scope="col">Nome Candidato</th>
+                        <th scope="col">Skills</th>
+                        <th Style="display:none;" scope="col">Certificados</th>
+                        <th scope="col">Número de certificações</th>
+                        <th scope="col">Telefone</th>
+                        <th scope="col">E-mail</th>
+                        <th scope="col"></th>
+                    </tr>
+                    </thead>
+                    <tbody id="tableCandidatos" >
+                    <tr th:each="c:${candidatos}">
+                        <td Style="display:none;" th:text="${c.cpf}">
+                        </td>
+                        <td th:text="${c.getNomeCandidato()}">
+                        </td>
+                        <td th:text="${c.getAllSkills()}">
+                        </td>
+                        <td th:id="${'certs'+c.idCandidato}" Style="display:none;" th:text="${c.getAllCertificados()}">
+                        </td>
+                        <td style="text-align: center;">
+                            <button th:text="${c.getCertificados().size()}"
+                                    data-bs-toggle="modal" data-bs-target="#certificacoesCandidato"
+                                    th:onclick="goToCertificacoes([[${c.idCandidato}]],[[${c.getNomeCandidato()}]]);"
+                                    class="badge rounded-pill bg-success"></button>
+                        </td>
+                        <td th:text="${c.getTelefone()}">
+                        </td>
+                        <td th:text="${c.getEmail()}">
+                        </td>
+                        <td>
+                            <button data-bs-toggle="modal" data-bs-target="#perfilCandidato"
+                                    th:onclick="goToPerfil([[${c.getNomeCandidato()}]],[[${c.cpf}]],[[${c.getEmail()}]],[[${c.getTelefone()}]],[[${c.genero}]],[[${c.dtNasc}]]);"
+                                    class="badge rounded-pill bg-warning text-dark">info</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <br>
+            <button id="btnAdicionar" onclick="erase()"
+                    data-bs-toggle="modal" data-bs-target="#modalCandidato"
+                    type="button" class="btn btn-info">
+                Adicionar novo candidato
+            </button>
+        </div>
+    </div>
+
+</div>
+
+<div th:insert="modal :: modalCandidato"></div>
+<div th:insert="perfil :: perfilCandidato"></div>
+<div th:insert="certificacoes :: certificacoesCandidato"></div>
+
+<script>
+
+    function erase(){
+        document.getElementById("nome").value="";
+        document.getElementById("cpf").value="";
+        document.getElementById("email").value="";
+        document.getElementById("telefone").value="";
+        document.getElementById("genero").value="";
+        document.getElementById("dtNasc").value="";
+        document.getElementById("nomeCert1").value="";
+        document.getElementById("cdCert1").value="";
+        document.getElementById("dtCert1").value="";
+        document.getElementById("nomeCert2").value="";
+        document.getElementById("cdCert2").value="";
+        document.getElementById("dtCert2").value="";
+        document.getElementById("nomeCert3").value="";
+        document.getElementById("cdCert3").value="";
+        document.getElementById("dtCert3").value="";
+        document.getElementById("nomeCert4").value="";
+        document.getElementById("cdCert4").value="";
+        document.getElementById("dtCert4").value="";
+        document.getElementById("nomeCert5").value="";
+        document.getElementById("cdCert5").value="";
+        document.getElementById("dtCert5").value="";
+    }
+
+    function search(){
+        let string = document.getElementById('searcher').value;
+        let rows = document.getElementById('tableCandidatos').rows;
+        if(string==""){
+            const lines = document.querySelectorAll('tr');
+
+            lines.forEach(lines => {
+              lines.removeAttribute("style");
+            });
+        }
+
+
+        for(var i = 0; i < rows.length; i++){
+            let cpf = $("tr:nth-child("+(i+1)+")").children("td:nth-child(1)").html();
+            let cpf2 = $("tr:nth-child("+(i+1)+")").children("td:nth-child(1)").html().replace(".","").replace(".","").replace("-","");
+            let nome = $("tr:nth-child("+(i+1)+")").children("td:nth-child(2)").html();
+            let skills = $("tr:nth-child("+(i+1)+")").children("td:nth-child(3)").html();
+            let certificados = $("tr:nth-child("+(i+1)+")").children("td:nth-child(4)").html().replace("Código = ","").replace(" Nome = ","").replace(" Conclusão = ","");
+            let telefone = $("tr:nth-child("+(i+1)+")").children("td:nth-child(6)").html();
+            let telefone2 = $("tr:nth-child("+(i+1)+")").children("td:nth-child(6)").html().replace("(","").replace(")","");
+            let telefone3 = $("tr:nth-child("+(i+1)+")").children("td:nth-child(6)").html().replace("-","");
+            let telefone4 = $("tr:nth-child("+(i+1)+")").children("td:nth-child(6)").html().replace("(","").replace(")","").replace("-","");
+            let email = $("tr:nth-child("+(i+1)+")").children("td:nth-child(7)").html();
+
+            let present = (cpf.includes(string) || cpf2.includes(string) || nome.includes(string) || skills.includes(string) || certificados.includes(string) || telefone.includes(string) || telefone2.includes(string) || telefone3.includes(string) || telefone4.includes(string) ||email.includes(string))
+
+            if(!present){
+                rows[i].setAttribute("style","display:none");
+            }else{
+                rows[i].removeAttribute("style");
+            }
+
+        }
+
+    }
+
+    function goToPerfil(nome,cpf,email,telefone,genero,dtnasc){
+        document.getElementById("perfilNome").value = nome;
+        document.getElementById("perfilCpf").value = cpf;
+        document.getElementById("perfilEmail").value = email;
+        document.getElementById("perfilTelefone").value = telefone;
+        document.getElementById("perfilGenero").value = genero;
+
+        let dataArray = dtnasc.split("-");
+
+        document.getElementById("perfilDtNasc").value = dataArray[2]+"/"+dataArray[1]+"/"+dataArray[0];
+    }
+
+    function goToCertificacoes(i,candidato){
+
+        document.getElementById("certificacaoLabel").innerHTML = "Certificados de "+candidato;
+
+        let array = $("#certs"+i).text().replace('[','').replace(']','').split(",");
+
+        let bodyTable = document.getElementById("bodyTable");
+
+        for(var i=0;i<array.length;i++){
+            var rowElements = array[i].split("|");
+            var row = document.createElement('tr');
+            row.setAttribute("class","tempRow");
+
+            var codigo = rowElements[0].replace('Código = ','');
+            var tdCodigo = document.createElement('td');
+            tdCodigo.innerHTML = codigo;
+
+            var nome = rowElements[1].replace(' Nome = ','');
+            var tdNome = document.createElement('td');
+            tdNome.innerHTML = nome;
+
+            var dataSplit = rowElements[2].replace(' Conclusão = ','').split("-");
+            var tddata = document.createElement('td');
+            tddata.innerHTML = dataSplit[2]+"/"+dataSplit[1]+"/"+dataSplit[0];
+
+            row.appendChild(tdCodigo);
+            row.appendChild(tdNome);
+            row.appendChild(tddata);
+            bodyTable.appendChild(row);
+        }
+
+
+    }
+
+</script>
+
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+</body>
+</html>

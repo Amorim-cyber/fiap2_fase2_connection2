@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.thymeleaf.org ">
+<head>
+    <meta charset="UTF-8">
+    <title>Modal Morada</title>
+    <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
+</head>
+
+<body>
+<div th:fragment="certificacoesCandidato">
+    <div class="modal fade" id="certificacoesCandidato" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+         aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="certificacaoLabel"></h5>
+                    <button type="button" onclick="destroy()"
+                            class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="overflow-auto">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th scope="col">Código</th>
+                                <th scope="col">Nome</th>
+                                <th scope="col">Data conclusão</th>
+                            </tr>
+                            </thead>
+                            <tbody id="bodyTable">
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button onclick="destroy()" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    function destroy(){
+        const tempRows = document.querySelectorAll('.tempRow');
+
+        tempRows.forEach(tempRows => {
+          tempRows.remove();
+        });
+    }
+    </script>
+
+</div>
+
+
+
+</body>
+</html>

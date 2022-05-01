@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.thymeleaf.org ">
+<head>
+    <meta charset="UTF-8">
+    <title>Modal Morada</title>
+    <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
+</head>
+
+<body>
+<div th:fragment="perfilCandidato">
+    <div class="modal fade" id="perfilCandidato" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+         aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="perfilLabel">Perfil Candidato</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form__group field mb-3">
+                            <label for="perfilNome">Nome do candidato:</label>
+                            <input type="text" disabled class="form-control" name="perfilNome" id="perfilNome">
+                        </div>
+                        <div class="form__group field mb-3">
+                            <label for="perfilCpf">CPF do candidato:</label>
+                            <input disabled
+                                   type="text"
+                                   class="form-control" name="perfilCpf" id="perfilCpf">
+                        </div>
+                        <div class="form__group field mb-3">
+                            <label for="perfilEmail">E-mail do Candidato:</label>
+                            <input name="perfilEmail" disabled
+                                   type="text" class="form-control" id="perfilEmail">
+                        </div>
+                        <div class="form__group field mb-3">
+                            <label for="perfilTelefone">Telefone do Candidato:</label>
+                            <input name="perfilTelefone" disabled
+                                   type="text"
+                                   class="form-control" id="perfilTelefone">
+                        </div>
+                        <div class="form__group field mb-3">
+                            <label for="perfilGenero">Gênero do candidato</label>
+                            <select name="perfilGenero" id="perfilGenero"
+                                    disabled class="form__field">
+                                <option selected value="">-</option>
+                                <option value="MASCULINO">Masculino</option>
+                                <option value="FEMININO">Feminino</option>
+                                <option value="OUTROS">Outro</option>
+                            </select>
+                        </div>
+                        <div class="form__group field mb-3">
+                            <label for="perfilDtNasc">Data de nascimento:</label>
+                            <input name="perfilDtNasc" disabled
+                                   type="text" class="form-control" id="perfilDtNasc">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

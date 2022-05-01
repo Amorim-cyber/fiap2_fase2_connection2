@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.thymeleaf.org ">
+<head>
+    <meta charset="UTF-8">
+    <title>Modal Morada</title>
+    <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
+</head>
+
+<body>
+<div th:fragment="modalCandidato">
+    <div class="modal fade" id="modalCandidato" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+         aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <form id="formModal" th:action="@{/home/novoCandidato}" th:object="${candidato}" method="post">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalLabel">Adição Candidato</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form__group field mb-3">
+                            <label for="nome">Digite o nome do candidato:</label>
+                            <input type="text" th:field="*{nomeCandidato}" class="form-control" name="nome" id="nome">
+                        </div>
+                        <div class="form__group field mb-3">
+                            <label for="cpf">Digite o CPF do candidato:</label>
+                            <input data-inputmask="'mask': '999.999.999-99'"
+                                   type="text" th:field="*{cpf}"
+                                   class="form-control" name="cpf" id="cpf">
+                        </div>
+                        <div class="form__group field mb-3">
+                            <label for="email">Digite o E-mail do Candidato:</label>
+                            <input name="email" th:field="*{email}"
+                                   type="email" class="form-control" id="email">
+                        </div>
+                        <div class="form__group field mb-3">
+                            <label for="telefone">Digite o telefone do Candidato:</label>
+                            <input name="telefone" data-inputmask="'mask': '(99)99999-9999'"
+                                   type="text" th:field="*{telefone}"
+                                   class="form-control" id="telefone">
+                        </div>
+                        <div class="form__group field mb-3">
+                            <label for="genero">Gênero do candidato</label>
+                            <select name="genero" id="genero" th:field="*{genero}" class="form__field">
+                                <option selected value="">-</option>
+                                <option value="MASCULINO">Masculino</option>
+                                <option value="FEMININO">Feminino</option>
+                                <option value="OUTROS">Outro</option>
+                            </select>
+                        </div>
+                        <div class="form__group field mb-3">
+                            <label for="dtNasc">Data de nascimento:</label>
+                            <input name="dtNasc" th:field="*{dtNasc}"
+                                   type="date" class="form-control" id="dtNasc">
+                        </div>
+                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="skill-tab" data-bs-toggle="tab"
+                                        data-bs-target="#skill" onclick="showSkill()"
+                                        type="button" role="tab" aria-controls="skill" aria-selected="true">
+                                        Skills</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="certificao1-tab" data-bs-toggle="tab"
+                                        data-bs-target="#certificao1" onclick="showCertificacao1()"
+                                        type="button" role="tab" aria-controls="certificao1" aria-selected="false">
+                                        Certificação 1</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="certificao2-tab" data-bs-toggle="tab"
+                                        data-bs-target="#certificao2" onclick="showCertificacao2()"
+                                        type="button" role="tab" aria-controls="certificao2" aria-selected="false">
+                                    Certificação 2</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="certificao3-tab" data-bs-toggle="tab"
+                                        data-bs-target="#certificao3" onclick="showCertificacao3()"
+                                        type="button" role="tab" aria-controls="certificao3" aria-selected="false">
+                                    Certificação 3</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="certificao4-tab" data-bs-toggle="tab"
+                                        data-bs-target="#certificao4" onclick="showCertificacao4()"
+                                        type="button" role="tab" aria-controls="certificao4" aria-selected="false">
+                                    Certificação 4</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="certificao5-tab" data-bs-toggle="tab"
+                                        data-bs-target="#certificao5" onclick="showCertificacao5()"
+                                        type="button" role="tab" aria-controls="certificao5" aria-selected="false">
+                                    Certificação 5</button>
+                            </li>
+                        </ul>
+                        <div id="skill" role="tabpanel" aria-labelledby="skill-tab"
+                        class="tab-pane fade show active">
+                            <div class="form__group field mb-3">
+                                <label for="dtNasc">Selecione no máximo 5 habilidades do candidato:</label>
+                                <div role="group" class="btn-habilities btn-big-group flex-wrap btn-group">
+                                    <input type="button" th:id = "${'skill'+c.getIdSkill()}"
+                                            style="pointer-events: auto;" th:value="${c.getNomeSkill()}"
+                                            th:each="c:${skills}" name="skill"
+                                            onmouseover="activate(this)"
+                                            onmouseout="disable(this)"
+                                            onclick="toggle(this)"
+                                            class="btn btn-outline-secondary disabled" >
+                                </div>
+                                <input type="hidden" class="listSkill" value="" name="skillSelected1" id="skillSelected1">
+                                <input type="hidden" class="listSkill" value="" name="skillSelected2" id="skillSelected2">
+                                <input type="hidden" class="listSkill" value="" name="skillSelected3" id="skillSelected3">
+                                <input type="hidden" class="listSkill" value="" name="skillSelected4" id="skillSelected4">
+                                <input type="hidden" class="listSkill" value="" name="skillSelected5" id="skillSelected5">
+                            </div>
+                        </div>
+
+                        <div style="display:none" id="certificacao1" class="tab-pane fade"
+                             role="tabpanel" aria-labelledby="certificao1-tab">
+                            <div class="form__group field mb-3">
+                                <label for="nomeCert1">Digite o nome da certificação:</label>
+                                <input name="nomeCert1" th:field="*{certificados[0].tipo.nomeTipoCert}"
+                                       type="text" class="form-control" id="nomeCert1" >
+                            </div>
+                            <div class="form__group field mb-3">
+                                <label for="cdCert1">Digite o código da certificação:</label>
+                                <input name="cdCert1" th:field="*{certificados[0].cdCertificacao}"
+                                       type="text" class="form-control" id="cdCert1">
+                            </div>
+                            <div class="form__group field mb-3">
+                                <label for="dtCert1">Digite a data de conclusão:</label>
+                                <input name="dtCert1" th:field="*{certificados[0].dtConclusao}"
+                                       type="date" class="form-control" id="dtCert1">
+                            </div>
+                        </div>
+
+                        <div style="display:none" id="certificacao2" class="tab-pane fade"
+                             role="tabpanel" aria-labelledby="certificao2-tab">
+                            <div class="form__group field mb-3">
+                                <label for="nomeCert2">Digite o nome da certificação:</label>
+                                <input name="nomeCert" th:field="*{certificados[1].tipo.nomeTipoCert}"
+                                       type="text" class="form-control" id="nomeCert2" >
+                            </div>
+                            <div class="form__group field mb-3">
+                                <label for="cdCert2">Digite o código da certificação:</label>
+                                <input name="cdCert2" th:field="*{certificados[1].cdCertificacao}"
+                                       type="text" class="form-control" id="cdCert2">
+                            </div>
+                            <div class="form__group field mb-3">
+                                <label for="dtCert2">Digite a data de conclusão:</label>
+                                <input name="dtCert" th:field="*{certificados[1].dtConclusao}"
+                                       type="date" class="form-control" id="dtCert2">
+                            </div>
+                        </div>
+
+                        <div style="display:none" id="certificacao3" class="tab-pane fade"
+                             role="tabpanel" aria-labelledby="certificao3-tab">
+                            <div class="form__group field mb-3">
+                                <label for="nomeCert3">Digite o nome da certificação:</label>
+                                <input name="nomeCert" th:field="*{certificados[2].tipo.nomeTipoCert}"
+                                       type="text" class="form-control" id="nomeCert3" >
+                            </div>
+                            <div class="form__group field mb-3">
+                                <label for="cdCert3">Digite o código da certificação:</label>
+                                <input name="cdCert" th:field="*{certificados[2].cdCertificacao}"
+                                       type="text" class="form-control" id="cdCert3">
+                            </div>
+                            <div class="form__group field mb-3">
+                                <label for="dtCert3">Digite a data de conclusão:</label>
+                                <input name="dtCert" th:field="*{certificados[2].dtConclusao}"
+                                       type="date" class="form-control" id="dtCert3">
+                            </div>
+                        </div>
+
+                        <div style="display:none" id="certificacao4" class="tab-pane fade"
+                             role="tabpanel" aria-labelledby="certificao4-tab">
+                            <div class="form__group field mb-3">
+                                <label for="nomeCert4">Digite o nome da certificação:</label>
+                                <input name="nomeCert" th:field="*{certificados[3].tipo.nomeTipoCert}"
+                                       type="text" class="form-control" id="nomeCert4" >
+                            </div>
+                            <div class="form__group field mb-3">
+                                <label for="cdCert4">Digite o código da certificação:</label>
+                                <input name="cdCert" th:field="*{certificados[3].cdCertificacao}"
+                                       type="text" class="form-control" id="cdCert4">
+                            </div>
+                            <div class="form__group field mb-3">
+                                <label for="dtCert4">Digite a data de conclusão:</label>
+                                <input name="dtCert" th:field="*{certificados[3].dtConclusao}"
+                                       type="date" class="form-control" id="dtCert4">
+                            </div>
+                        </div>
+
+                        <div style="display:none" id="certificacao5" class="tab-pane fade"
+                             role="tabpanel" aria-labelledby="certificao5-tab">
+                            <div class="form__group field mb-3">
+                                <label for="nomeCert5">Digite o nome da certificação:</label>
+                                <input name="nomeCert" th:field="*{certificados[4].tipo.nomeTipoCert}"
+                                       type="text" class="form-control" id="nomeCert5" >
+                            </div>
+                            <div class="form__group field mb-3">
+                                <label for="cdCert5">Digite o código da certificação:</label>
+                                <input name="cdCert" th:field="*{certificados[4].cdCertificacao}"
+                                       type="text" class="form-control" id="cdCert5">
+                            </div>
+                            <div class="form__group field mb-3">
+                                <label for="dtCert5">Digite a data de conclusão:</label>
+                                <input name="dtCert" th:field="*{certificados[4].dtConclusao}"
+                                       type="date" class="form-control" id="dtCert5">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                        <button id="submitButton" type="submit" class="btn btn-primary">Adicionar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div th:insert="scripts/scriptscertificacao :: scriptCertificacao"></div>
+    <script>
+    $(":input").inputmask();
+
+    function activate(element){
+        element.setAttribute("class","btn btn-outline-secondary active");
+    }
+
+    function disable(element){
+        element.setAttribute("class","btn btn-outline-secondary disabled");
+    }
+
+    function toggle(element)
+      {
+          let activateClickedButtons = document.getElementsByClassName("btn btn-outline-secondary active clicked");
+           let skills = [document.getElementById("skillSelected1"),
+                          document.getElementById("skillSelected2"),
+                          document.getElementById("skillSelected3"),
+                          document.getElementById("skillSelected4"),
+                            document.getElementById("skillSelected5")];
+          if(activateClickedButtons.length == 5 &&
+            element.getAttribute("class")=="btn btn-outline-secondary active")
+                return;
+
+
+          if(element.getAttribute("class")=="btn btn-outline-secondary active clicked"){
+            element.setAttribute("class","btn btn-outline-secondary active");
+            element.setAttribute("onmouseover","activate(this)");
+            element.setAttribute("onmouseout","disable(this)");
+            for(var i = 0; i < skills.length;i++){
+                if(skills[i].value==element.value){
+                    skills[i].value = "";
+                    break;
+                }
+
+            }
+            skill1.value = "";
+          }else{
+            element.setAttribute("class","btn btn-outline-secondary active clicked");
+              element.removeAttribute("onmouseover");
+              element.removeAttribute("onmouseout");
+              for(var i = 0; i < skills.length;i++){
+                if(skills[i].value==""){
+                    skills[i].value = element.value;
+                    break;
+                }
+
+              }
+          }
+
+      }
+
+    </script>
+
+</div>
+
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+</body>
+</html>
